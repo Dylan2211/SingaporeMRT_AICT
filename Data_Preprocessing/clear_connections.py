@@ -1,7 +1,11 @@
+import os
 import re
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+mrt_network_path = os.path.join(PROJECT_ROOT, 'mrtNetwork.py')
+
 # Read the original file
-with open('mrtNetwork.py', 'r', encoding='utf-8') as f:
+with open(mrt_network_path, 'r', encoding='utf-8') as f:
     lines = f.readlines()
 
 # Process each line
@@ -39,7 +43,7 @@ for line in lines:
         new_lines.append(line)
 
 # Write the modified content
-with open('mrtNetwork.py', 'w', encoding='utf-8') as f:
+with open(mrt_network_path, 'w', encoding='utf-8') as f:
     f.writelines(new_lines)
 
 print('Successfully cleared all station connection values!')

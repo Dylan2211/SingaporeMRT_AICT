@@ -1,4 +1,11 @@
-from transfer import load_transfer_timings
+import os
+import sys
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+if PROJECT_ROOT not in sys.path:
+	sys.path.append(PROJECT_ROOT)
+
+from Classes.transfer import load_transfer_timings
 from mrtNetwork import build_mrt_network
 
 def breadth_first_search(mrt_network, start_station_name, goal_station_name, transfer_timings_dict=None):
@@ -53,7 +60,8 @@ def breadth_first_search(mrt_network, start_station_name, goal_station_name, tra
 
 if __name__ == "__main__":
 	mrt_network = build_mrt_network()
-	load_transfer_timings("MRT transfer timing.csv")
+	transfer_csv = os.path.join(PROJECT_ROOT, "Data", "MRT transfer timing.csv")
+	load_transfer_timings(transfer_csv)
 	# Example: Find path from Clementi to Changi Airport
 	start = "Clementi"
 	end = "Changi Airport"

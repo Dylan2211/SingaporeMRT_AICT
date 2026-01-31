@@ -1,4 +1,11 @@
 import csv
+import os
+import sys
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
+if PROJECT_ROOT not in sys.path:
+    sys.path.append(PROJECT_ROOT)
+
 from mrtNetwork import CurrentStations
 
 # MRT lines ordered from oldest to newest with official station sequences
@@ -75,7 +82,8 @@ line_names = {
 
 line_order = ['NSL', 'EWL', 'NEL', 'CCL', 'DTL', 'TEL', 'BPL', 'SKL', 'PGL']
 
-with open('mrt_connections.csv', 'w', newline='', encoding='utf-8') as f:
+output_path = os.path.join(PROJECT_ROOT, "Data", "mrt_connections.csv")
+with open(output_path, 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f)
     writer.writerow(['Line', 'Line_Name', 'Station', 'Destination', 'Travel_Time_Seconds'])
     
@@ -90,6 +98,7 @@ with open('mrt_connections.csv', 'w', newline='', encoding='utf-8') as f:
     
     writer.writerows(rows)
     print(f'✓ Reorganized mrt_connections.csv with correct official station sequences')
+    print(f'✓ Output: {output_path}')
     print(f'✓ Total connections: {len(rows)}')
     print()
     for line in line_order:
